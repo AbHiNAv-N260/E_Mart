@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:e_mart/components/cartproducts.dart';
 import 'package:flutter/material.dart';
 import 'package:e_mart/main.dart';
 import 'home.dart';
@@ -31,14 +32,17 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  
   String selectedSize = 'S';
   String selectedColor = 'Black';
   int selectedQuantity = 1;
+  bool isFav = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
         title: InkWell(
@@ -190,7 +194,26 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                var list = [
+                  {
+                    "name": widget.product_detail_name.toString(),
+  
+                    "picture": widget.product_detail_picture.toString(),
+                    "old_price": widget.product_detail_old_price,
+                    "price": widget.product_detail_price,
+                    "details": widget.product_details.toString(),
+                    "brand": widget.product_detail_brand.toString(),
+                    "size": selectedSize,
+                    "qty": selectedQuantity,
+                    "color": selectedColor,
+                  }
+                ];
+                setState(() {
+                  Products_on_the_cart.add(list as Map<String, Object>);
+                });
+                
+              },
               icon: Icon(
                 Icons.add_shopping_cart,
                 color: Colors.red,
@@ -464,7 +487,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 }
-
 
 class Similar_Products extends StatefulWidget {
   const Similar_Products({super.key});
